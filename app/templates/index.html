@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apex Multi-Asset Trader</title>
+  <link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+<section id="loginPanel" class="login-panel" hidden><form id="loginForm" class="panel"><div class="eyebrow">APEX / PRIVATE WORKSPACE</div><h1>Welcome back</h1><p>Sign in to your paper-trading account.</p><label>Password<input id="password" type="password" autocomplete="current-password" required /></label><button type="submit">Sign in</button><p id="loginMsg" role="alert"></p></form></section><div class="shell" id="dashboard" hidden>
+  <header>
+    <div><div class="eyebrow">PAPER TRADING</div><h1>Apex Multi‑Asset Trader</h1></div>
+    <div><div class="status" id="connection">Connecting…</div><button id="logout" class="secondary" type="button">Sign out</button></div>
+  </header><p class="notice">Simulation workspace · All quotes are generated demo prices, not live market data. Starting paper balance: $10,000.</p><p id="appMsg" role="status"></p>
+
+  <section class="metrics">
+    <div class="card"><span>Equity</span><strong id="equity">—</strong></div>
+    <div class="card"><span>Cash</span><strong id="cash">—</strong></div>
+    <div class="card"><span>Open P&amp;L</span><strong id="unreal">—</strong></div>
+    <div class="card"><span>Realised P&amp;L</span><strong id="realised">—</strong></div>
+  </section>
+
+  <main class="grid"><section class="panel chart-panel"><div class="panel-head"><h2>Account equity</h2><span>Last 24 hours · one-minute samples</span></div><svg id="equityChart" viewBox="0 0 800 160" role="img" aria-label="Paper account equity over time"></svg><p id="chartMsg">Your equity history will appear as the engine runs.</p></section>
+    <section class="panel market-panel"><div class="panel-head"><h2>Markets</h2><span>simulated live feed</span></div><div id="markets"></div></section>
+    <section class="panel order-panel">
+      <div class="panel-head"><h2>Paper order</h2><span>live funds disabled</span></div>
+      <form id="orderForm">
+        <label>Symbol<select id="symbol"></select></label>
+        <label>Side<select id="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
+        <label>Quantity<input id="qty" type="number" min="0.000001" step="any" value="0.001" /></label>
+        <label>Stop price (buys only)<input id="stopLoss" type="number" min="0.000001" step="any" placeholder="Defaults to 2% below entry" /></label><p class="hint">Additional buys retain the existing stop. Sells reduce holdings; shorting and leverage are disabled.</p><button type="submit">Place paper order</button><div id="orderMsg" role="status"></div>
+      </form>
+    </section>
+    <section class="panel positions-panel"><div class="panel-head"><h2>Positions</h2></div><div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Qty</th><th>Avg</th><th>Mark</th><th>Stop</th><th>P&amp;L</th><th>Action</th></tr></thead><tbody id="positions"></tbody></table></div></section>
+    <section class="panel risk-panel">
+      <div class="panel-head"><h2>Risk controls</h2></div>
+      <form id="settingsForm">
+        <label>Position risk to stop (%)<input id="risk" type="number" min="0.1" max="2" step="0.1" required /></label>
+        <label>Maximum position / equity (%)<input id="maxPos" type="number" min="5" max="50" step="1" required /></label>
+        <label>Daily equity loss limit (%)<input id="lossLimit" type="number" min="1" max="10" step="1" required /></label>
+        <label class="toggle"><input id="autoTrade" type="checkbox" /> Enable auto-demo strategy</label>
+        <button type="submit">Save risk settings</button><p id="settingsMsg" role="status"></p><p id="dailyStatus" class="hint"></p>
+      </form>
+    </section>
+    <section class="panel trades-panel"><div class="panel-head"><h2>Trade log</h2></div><div class="table-wrap"><table><thead><tr><th>Time</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Price</th><th>Realised</th></tr></thead><tbody id="trades"></tbody></table></div></section>
+  </main>
+  <footer>Paper mode only · Simulated fills exclude fees, spread and financing · Stops can slip between quotes · Demo strategy is not backtested</footer>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

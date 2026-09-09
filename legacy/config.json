@@ -1,0 +1,74 @@
+{
+    "version": 4,
+    "dry_run": true,
+    "strategy": "CryptoStrategy",
+    "exchange": {
+        "name": "binance",
+        "key": "YOUR_BINANCE_API_KEY",
+        "secret": "YOUR_BINANCE_API_SECRET",
+        "ccxt_config": {
+            "enableRateLimit": true
+        },
+        "ccxt_async_config": {},
+        "type": "spot"
+    },
+    "stake_currency": "USDT",
+    "stake_amount": 100,
+    "fiat_display_currency": "USD",
+
+    "pairlist": {
+        "method": "Static",
+        "pairs": [
+            "BTC/USDT",
+            "ETH/USDT"
+        ]
+    },
+
+    "pairlist_secondary": {
+        "enabled": false,
+        "method": "TimeFrameAdaptive",
+        "lookback_period_candles": 48,
+        "lookback_timeframe": "1d"
+    },
+
+    "protection": {
+        "maxdrawdown": {
+            "enabled": true,
+            "max_drawdown": 0.1,
+            "lookback_period_candles": 720
+        },
+        "cooldown": {
+            "enabled": true,
+            "cooldown_time": 60
+        }
+    },
+
+    "logging": {
+        "loglevel": "INFO",
+        "filename": "freqtrade.log"
+    },
+
+    "telegram": {
+        "enabled": false,
+        "token": "",
+        "chat_id": ""
+    }
+
+    /*
+    Alternative exchange configuration for MetaTrader 5 using the custom adapter.
+    To trade FX or commodities with the Mt5Exchange, replace the "exchange" section above with:
+
+    "exchange": {
+        "name": "mt5",
+        "login": 1234567,
+        "password": "YOUR_MT5_PASSWORD",
+        "server": "YourBroker-MT5",
+        "type": "spot"
+    },
+    "stake_currency": "USD",
+    "pairlist": {
+        "method": "Static",
+        "pairs": ["EURUSD", "GBPUSD", "XAUUSD"]
+    }
+    */
+}
